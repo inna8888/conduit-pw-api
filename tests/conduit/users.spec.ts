@@ -16,7 +16,7 @@ test('ID-001 Create and get a new user', async ({ authRequest }) => {
 
   const response = await users.register(user);
 
-  expect(response.status()).toBe(200|201); 
+  expect(response.status()).toBe(201); 
   const json = await response.json();
   expect(json.user.email).toBe(user.email);
   expect(json.user.username).toBe(user.username);

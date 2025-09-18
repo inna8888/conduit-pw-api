@@ -11,7 +11,7 @@ export class ArticlesAPI extends ApiClient {
    }
 
    update(slug: string, article: any) {
-      return this.post(`api/articles/${slug}`, { 
+      return this.put(`api/articles/${slug}`, { 
          headers: {
             'Content-Type': 'application/json'
         },

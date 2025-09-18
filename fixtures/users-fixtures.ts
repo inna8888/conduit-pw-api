@@ -28,7 +28,6 @@ export const test = base.extend<Fixtures>({
        const json = await result.json();
        if (!json.user?.token) throw new Error("Token was not generated in fixtures");         
        const token = json.user.token;
-      //  fs.writeFileSync('tests/conduit/token.txt', token);
 
        console.log("Generated token:", token);
        expect(result.status()).toBe(201);
