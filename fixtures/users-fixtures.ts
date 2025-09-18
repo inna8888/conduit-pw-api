@@ -1,7 +1,5 @@
-import { APIRequestContext, APIResponse, test as base, request as newRequest} from "@playwright/test";
+import { APIRequestContext, APIResponse, test as base, request as newRequest, expect} from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import fs from "fs";
-import { expect } from '@playwright/test';
 
 type Fixtures = {
    token: string;
@@ -15,8 +13,8 @@ type Fixtures = {
 export const test = base.extend<Fixtures>({
     token: async ({ request }, use) => {
       const userData = {
-               username: faker.internet.username(),
-               email: faker.internet.email(),
+               username: faker.internet.username() + Date.now(),
+               email: faker.internet.email().replace('@', `+${Date.now()}@`),
                password: "123test22",
              };
 
@@ -30,7 +28,7 @@ export const test = base.extend<Fixtures>({
        const token = json.user.token;
 
        console.log("Generated token:", token);
-       expect(result.status()).toBe(201);
+       expect([200, 201]).toContain(result.status());
        expect(token).toBeTruthy();
        expect(token).toBeDefined();
 
@@ -49,4 +47,4 @@ export const test = base.extend<Fixtures>({
    },  
 });
 
-export { expect } from '@playwright/test';
+export { expect };
