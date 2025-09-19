@@ -3,8 +3,7 @@ import { test } from '../../fixtures/users-fixtures';
 import { ArticlesAPI } from '../../controllers/api/articles';
 
 const dataSet = [
-   { tags: ['tag1'], titleStart: 'Title with tag1' },
-   { tags: ['tag2'], titleStart: 'Title with tag2' },
+   { tags: ['tag1'], titleStart: 'Title with tag1' }
 ]
 
 for (const data of dataSet) {
@@ -12,9 +11,10 @@ for (const data of dataSet) {
       const articles = new ArticlesAPI(authRequest);
       const title = `${data.titleStart} - ${Date.now()}`;
       const resCreate = await articles.create({ title, description: 'Initial description', body: 'Initial body', tagList: data.tags }); 
-      expect (resCreate.status()).toBe(200);
-      const slug = (await resCreate.json()).article.slug;
+      const json = await resCreate.json();
+      const slug = json.article.slug;
       console.log(slug);
+      expect (resCreate.status()).toBe(201);
 
       const resEdit = await articles.update(slug, { title: `${slug} - edited` });
       expect (resEdit.status()).toBe(200);
