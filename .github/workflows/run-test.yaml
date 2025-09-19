@@ -5,9 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch: 
   schedule: 
   - cron: "0 9 * * *"
+  workflow_dispatch: 
 
 jobs:
   test:
